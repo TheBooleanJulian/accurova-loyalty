@@ -15,7 +15,7 @@ a separate commercial license is available. Because the copyright holder (TheBoo
 
 1. Open an issue on [github.com/TheBooleanJulian/accurova-loyalty](https://github.com/TheBooleanJulian/accurova-loyalty/issues) describing your intended use, or reach out via [github.com/TheBooleanJulian](https://github.com/TheBooleanJulian).
 2. Terms and fees are negotiated per organization — there's no fixed price list yet, since usage can range from "embed a small feature" to "resell as part of a product."
-3. Once agreed, you'll receive a signed agreement based on the [commercial license template](COMMERCIAL-LICENSE-AGREEMENT-TEMPLATE.md) covering your specific rights.
+3. Once agreed, you'll receive a signed agreement covering your specific rights.
 
 ## What doesn't change
 
