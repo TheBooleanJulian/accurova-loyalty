@@ -62,3 +62,11 @@ Same pattern as your other tools: GitHub -> Zeabur.
 - Redemption flow (spend points for a discount, applied as a line item in InvoiceForge)
 - Admin dashboard for viewing all clients / manual adjustments (currently API-only)
 - Signed QR tokens for physical redemption at a shoot (vs. the referral-link QR above)
+
+## License
+
+This project is dual licensed.
+
+**Community Edition** — [GNU Affero General Public License v3 (AGPLv3)](LICENSE). Free to use, modify, and self-host. If you distribute a modified version or run it as a network service, you must make the corresponding source available.
+
+**Commercial License** — for organisations that want to embed, modify, or distribute this software without AGPLv3's obligations. See [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md) and the [agreement template](COMMERCIAL-LICENSE-AGREEMENT-TEMPLATE.md).
