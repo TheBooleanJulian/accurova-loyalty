@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accurova Loyalty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-void: #050508;
+    --bg-panel: #0a0e14;
+    --teal: #00D4C8;
+    --gold: #F5C842;
+    --text-primary: #EDEDF0;
+    --text-muted: #7A7E88;
+    --border: #1C212B;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg-void);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--teal);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 32px;
+  }
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  input {
+    width: 100%;
+    background: var(--bg-void);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+  input:focus { outline: none; border-color: var(--teal); }
+  button {
+    width: 100%;
+    background: var(--teal);
+    color: #04342C;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px;
+    cursor: pointer;
+  }
+  button:hover { opacity: 0.9; }
+  button.secondary {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    font-weight: 400;
+    margin-top: 10px;
+  }
+  .error { color: #E8593C; font-size: 13px; margin: -8px 0 16px; }
+  .hidden { display: none; }
+
+  .balance-block { text-align: center; margin-bottom: 28px; }
+  .balance-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .balance-label { color: var(--text-muted); font-size: 13px; margin-top: 6px; }
+
+  .referral-box {
+    background: var(--bg-void);
+    border: 1px dashed var(--teal);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .referral-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    color: var(--teal);
+    letter-spacing: 0.05em;
+  }
+  .referral-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+  .history-title { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+  .history-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .history-row:last-child { border-bottom: none; }
+  .history-reason { color: var(--text-primary); }
+  .history-note { color: var(--text-muted); font-size: 12px; display: block; }
+  .history-delta { font-family: 'JetBrains Mono', monospace; }
+  .delta-pos { color: var(--teal); }
+  .delta-neg { color: #E8593C; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="eyebrow">Accurova</div>
+  <h1>Loyalty portal</h1>
+
+  <!-- Step 1: request code -->
+  <div class="panel" id="step-contact">
+    <label for="contact">Phone or email</label>
+    <input id="contact" type="text" placeholder="you@example.com">
+    <div class="error hidden" id="error-contact"></div>
+    <button onclick="requestCode()">Send me a code</button>
+  </div>
+
+  <!-- Step 2: verify code -->
+  <div class="panel hidden" id="step-verify">
+    <label for="code">6-digit code</label>
+    <input id="code" type="text" inputmode="numeric" maxlength="6" placeholder="000000">
+    <div class="error hidden" id="error-verify"></div>
+    <button onclick="verifyCode()">Verify</button>
+    <button class="secondary" onclick="backToContact()">Use a different contact</button>
+  </div>
+
+  <!-- Step 3: dashboard -->
+  <div class="panel hidden" id="step-dashboard">
+    <div class="balance-block">
+      <div class="balance-number" id="balance">0</div>
+      <div class="balance-label">points</div>
+    </div>
+    <div class="referral-box">
+      <div class="referral-code" id="referral-code">—</div>
+      <div class="referral-hint">Your referral code — share it, earn 100 points when they book</div>
+    </div>
+    <div class="history-title">Recent activity</div>
+    <div id="history"></div>
+  </div>
+</div>
+
+<script>
+  const API_BASE = ''; // same origin — adjust if API is deployed separately
+  let currentContact = '';
+
+  function showStep(id) {
+    ['step-contact', 'step-verify', 'step-dashboard'].forEach(s =>
+      document.getElementById(s).classList.toggle('hidden', s !== id));
+  }
+
+  async function requestCode() {
+    const contact = document.getElementById('contact').value.trim();
+    const errEl = document.getElementById('error-contact');
+    errEl.classList.add('hidden');
+    if (!contact) { errEl.textContent = 'Enter a phone or email.'; errEl.classList.remove('hidden'); return; }
+    try {
+      const res = await fetch(`${API_BASE}/api/otp/request`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contact })
+      });
+      if (!res.ok) { const d = await res.json(); throw new Error(d.detail || 'Failed to send code'); }
+      currentContact = contact;
+      showStep('step-verify');
+    } catch (e) {
+      errEl.textContent = e.message; errEl.classList.remove('hidden');
+    }
+  }
+
+  async function verifyCode() {
+    const code = document.getElementById('code').value.trim();
+    const errEl = document.getElementById('error-verify');
+    errEl.classList.add('hidden');
+    try {
+      const res = await fetch(`${API_BASE}/api/otp/verify`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contact: currentContact, code })
+      });
+      if (!res.ok) { const d = await res.json(); throw new Error(d.detail || 'Invalid code'); }
+      const data = await res.json();
+      localStorage.setItem('loyalty_token', data.token);
+      loadDashboard();
+    } catch (e) {
+      errEl.textContent = e.message; errEl.classList.remove('hidden');
+    }
+  }
+
+  function backToContact() { showStep('step-contact'); }
+
+  async function loadDashboard() {
+    const token = localStorage.getItem('loyalty_token');
+    if (!token) return;
+    const res = await fetch(`${API_BASE}/api/me`, { headers: { Authorization: `Bearer ${token}` } });
+    if (!res.ok) { localStorage.removeItem('loyalty_token'); return; }
+    const data = await res.json();
+    document.getElementById('balance').textContent = data.balance;
+    document.getElementById('referral-code').textContent = data.referral_code;
+    const historyEl = document.getElementById('history');
+    historyEl.innerHTML = data.history.map(h => `
+      <div class="history-row">
+        <div>
+          <div class="history-reason">${h.reason.replace('_', ' ')}</div>
+          ${h.note ? `<span class="history-note">${h.note}</span>` : ''}
+        </div>
+        <div class="history-delta ${h.delta >= 0 ? 'delta-pos' : 'delta-neg'}">${h.delta >= 0 ? '+' : ''}${h.delta}</div>
+      </div>
+    `).join('') || '<div class="history-note">No activity yet.</div>';
+    showStep('step-dashboard');
+  }
+
+  // Auto-login if a session token is already stored
+  loadDashboard();
+</script>
+</body>
+</html>
