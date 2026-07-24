@@ -119,16 +119,31 @@ Idempotent — safe to call more than once with the same `invoice_id`; points ar
 - [ ] Admin dashboard for client list and manual adjustments (currently API-only)
 - [ ] Signed QR tokens for physical redemption at a shoot
 
+### Future roadmap / suggestions
+
+- [ ] Rate limiting + lockout on OTP request/verify endpoints (brute-force and spam protection)
+- [ ] Automated test suite (backend API, ledger logic, OTP flow) — currently no tests
+- [ ] Structured logging + error tracking (e.g. Sentry) across FastAPI app and bot
+- [ ] Points expiry / tiered membership levels
+- [ ] Client-facing transaction history export (CSV/PDF)
+- [ ] Webhook or notification (Telegram/email) on points earned or redeemed
+- [ ] Postgres migration path for multi-tenant or higher-write-volume deployments
+- [ ] CI pipeline (lint + tests) ahead of Zeabur deploy on `main`
+
 ## Changelog
 
-- **Jul 2026** — Switched to dual licensing: AGPLv3 for community use, commercial license option added; removed earlier template agreement
-- **Jul 2026** — Initial release: FastAPI backend with SQLite ledger, Telegram bot with referral deep-links, single-file HTML web portal with OTP auth
+- **v0.2.1** — Jul 2026 — Docs: rewrote README with fuller structure, badges, config table, roadmap
+- **v0.2.0** — Jul 2026 — Switched to dual licensing: AGPLv3 for community use, commercial license option added; removed earlier template agreement
+- **v0.1.0** — Jul 2026 — Initial release: FastAPI backend with SQLite ledger, Telegram bot with referral deep-links, single-file HTML web portal with OTP auth
 
 ## License
 
-Dual-licensed:
-- **Community edition** — [AGPLv3](LICENSE)
-- **Commercial use** — see [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md)
+License based on [license-finder](https://github.com/TheBooleanJulian/license-finder).
+
+This project is dual licensed.
+
+- **Community Edition** — [GNU Affero General Public License v3 (AGPLv3)](LICENSE). Free to use, modify, and self-host. If you distribute a modified version or run it as a network service, you must make the corresponding source available.
+- **Commercial License** — for organisations that want to embed, modify, or distribute this software without AGPLv3's obligations. See [COMMERCIAL-LICENSE.md](COMMERCIAL-LICENSE.md).
 
 ---
 
