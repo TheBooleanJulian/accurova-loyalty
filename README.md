@@ -138,8 +138,6 @@ Idempotent — safe to call more than once with the same `invoice_id`; points ar
 
 ## License
 
-License based on [license-finder](https://github.com/TheBooleanJulian/license-finder).
-
 This project is dual licensed.
 
 - **Community Edition** — [GNU Affero General Public License v3 (AGPLv3)](LICENSE). Free to use, modify, and self-host. If you distribute a modified version or run it as a network service, you must make the corresponding source available.
