@@ -8,7 +8,7 @@
 ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white)
 ![SQLite](https://img.shields.io/badge/-SQLite-003B57?logo=sqlite&logoColor=white)
 ![Zeabur](https://img.shields.io/badge/-Zeabur-6C5CE7)
-![License](https://img.shields.io/badge/license-AGPLv3-00D4C8.svg)
+![License](https://img.shields.io/badge/license-AGPLv3%20%2B%20Commercial-00D4C8.svg)
 
 </div>
 
@@ -27,6 +27,10 @@ Accurova Loyalty is a points ledger for service businesses (built alongside Invo
 - `POST /api/admin/booking-completed` endpoint — idempotent points crediting on invoice paid
 - Automatic referrer credit on a referred client's first completed booking
 - QR codes pointing to bot deep-links or web portal with prefilled referral codes
+
+## Screenshots
+
+_Screenshots coming soon._
 
 ## Tech Stack
 
